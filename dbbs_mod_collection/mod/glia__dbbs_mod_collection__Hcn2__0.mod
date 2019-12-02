@@ -11,7 +11,7 @@ From Golgi_hcn2 to HCN2
 ENDCOMMENT
 
 NEURON {
-SUFFIX glia__dbbs_mod_collection__Hcn2__0
+SUFFIX glia__dbbs_mod_collection__HCN2__0
 
         
 	NONSPECIFIC_CURRENT ih
