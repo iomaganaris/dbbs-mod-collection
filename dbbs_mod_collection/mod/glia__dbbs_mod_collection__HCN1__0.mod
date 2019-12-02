@@ -11,7 +11,7 @@ From Golgi_hcn1 to HCN1
 ENDCOMMENT
 
 NEURON {
-SUFFIX glia__dbbs_mod_collection__HCN3__0
+SUFFIX glia__dbbs_mod_collection__HCN1__0
 	NONSPECIFIC_CURRENT ih
 	RANGE Q10_diff,Q10_channel,gbar_Q10, ic
 	RANGE o_fast_inf, o_slow_inf, tau_f, tau_s, Erev
