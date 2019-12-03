@@ -4,7 +4,7 @@ COMMENT
 ENDCOMMENT
 
 NEURON {
-	POINT_PROCESS GRANULE_Ampa_det_vi
+POINT_PROCESS glia__dbbs_mod_collection__AMPA__granule_cell_deterministic
 	NONSPECIFIC_CURRENT i
 	RANGE Q10_diff,Q10_channel
 	RANGE R, g, ic,yuno
