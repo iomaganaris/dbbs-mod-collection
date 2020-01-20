@@ -4,7 +4,7 @@ COMMENT
 ENDCOMMENT
 
 NEURON {
-POINT_PROCESS glia__dbbs_mod_collection__AMPA__Golgi_deterministic
+POINT_PROCESS glia__dbbs_mod_collection__AMPA__golgi_cell_deterministic
 	NONSPECIFIC_CURRENT i
 	RANGE Q10_diff,Q10_channel
 	RANGE R, g, ic
