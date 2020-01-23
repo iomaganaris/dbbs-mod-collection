@@ -23,7 +23,7 @@ Contact: akemann@brain.riken.jp
 ENDCOMMENT
 
 NEURON {
-	SUFFIX Nav1_1
+SUFFIX glia__dbbs_mod_collection__Nav1_1__0
 	USEION na READ ena WRITE ina
 	NONSPECIFIC_CURRENT i
 	RANGE g, gbar, ina, i, igate, nc
