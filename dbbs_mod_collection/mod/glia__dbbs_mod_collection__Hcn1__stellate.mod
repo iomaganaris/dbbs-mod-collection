@@ -7,7 +7,7 @@ We call it HCN1 as PC express only HCN1 Santoro et al. 2000
 ENDCOMMENT
 
 NEURON {
-SUFFIX glia__dbbs_mod_collection__Hcn1__stellate
+SUFFIX glia__dbbs_mod_collection__HCN1__stellate
 	USEION h READ eh WRITE ih VALENCE 1 
 	RANGE gbar, hinf,tauh,ratetau,ih
 	RANGE hinf,tauh,eh
