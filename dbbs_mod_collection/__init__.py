@@ -82,6 +82,9 @@ def package():
   mod_glia__dbbs_mod_collection__HCN1__0.variant = '0'
   mod_glia__dbbs_mod_collection__HCN1__0.asset_name = 'HCN1'
   mod_glia__dbbs_mod_collection__HCN1__0.namespace = 'glia__dbbs_mod_collection'
+  mod_glia__dbbs_mod_collection__HCN1__0._is_point_process = False
+  mod_glia__dbbs_mod_collection__HCN1__0._is_artificial_cell = False
+  mod_glia__dbbs_mod_collection__HCN1__0._name_statement = 'SUFFIX'
   mod_glia__dbbs_mod_collection__HCN1__0.pkg = pkg
   pkg.mods.append(mod_glia__dbbs_mod_collection__HCN1__0)
   #-##
