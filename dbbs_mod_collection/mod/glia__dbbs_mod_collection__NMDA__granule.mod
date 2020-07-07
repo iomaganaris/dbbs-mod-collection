@@ -1,5 +1,5 @@
 NEURON {
-POINT_PROCESS glia__dbbs_mod_collection__NMDA__granule_cell_deterministic
+POINT_PROCESS glia__dbbs_mod_collection__NMDA__granule
 	NONSPECIFIC_CURRENT i
 	RANGE Q10_diff,Q10_channel
 	RANGE g , ic
