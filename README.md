@@ -6,4 +6,5 @@ This package is best installed using Glia:
 
     glia install dbbs-mod-collection
 
-These models were made publicly available by Robin De Schepper.
+These models were made publicly available by Robin De Schepper, copyright notices can be
+found in the individual mod files.
