@@ -21,7 +21,7 @@ ENDCOMMENT
 
 
 NEURON {
-  SUFFIX glia__dbbs_mod_collection__cdp5__CAM_GoC
+SUFFIX glia__dbbs_mod_collection__cdp5__CAM_GoC
   USEION ca READ cao, cai, ica WRITE cai
   USEION nrvc READ nrvci VALENCE 1
   RANGE ica_pmp
