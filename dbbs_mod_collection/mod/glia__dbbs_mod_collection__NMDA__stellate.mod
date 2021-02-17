@@ -5,7 +5,7 @@ POINT_PROCESS glia__dbbs_mod_collection__NMDA__stellate
 	RANGE g , ic
 	RANGE Cdur,Erev,T,Tmax
 	RANGE Rd, gmax, a, b, Kon, akon, Koff, aKoff, Kda, Kdam, Kdb, Kdbm, Ks, Ksm, Kf, Kfm
-	RANGE tau_1, tau_rec, tau_facil, U, u0 
+	RANGE tau_1, tau_rec, tau_facil, U, u0
 	RANGE PRE
 	RANGE Used
 	RANGE MgBlock,v0_block,k_block
@@ -13,7 +13,7 @@ POINT_PROCESS glia__dbbs_mod_collection__NMDA__stellate
 }
 
 UNITS {
-	(nA) = (nanoamp)	
+	(nA) = (nanoamp)
 	(mV) = (millivolt)
 	(umho) = (micromho)
 	(mM) = (milli/liter)
@@ -22,7 +22,7 @@ UNITS {
 	(um) = (micrometer)
 	PI	= (pi)		(1)
     }
-    
+
     PARAMETER {
 	syntype
 	gmax_factor = 1
@@ -31,10 +31,10 @@ UNITS {
 	Q10_diff	= 1.5 :1.4
 	Q10_channel	= 2.4 :2.2
 	U 		= 0.42 (1) 	< 0, 1 >
-	tau_rec 	= 8 (ms) 	< 1e-9, 1e9 > 	 
-	tau_facil 	= 5 (ms) 	< 0, 1e9 > 	
+	tau_rec 	= 8 (ms) 	< 1e-9, 1e9 >
+	tau_facil 	= 5 (ms) 	< 0, 1e9 >
 
-	M	= 21.515	: numero di (kilo) molecole in una vescicola		
+	M	= 21.515	: numero di (kilo) molecole in una vescicola
 	Rd	= 1.03 (um)
 	Diff	= 0.223 (um2/ms)
 	tau_1 	= 1 (ms) 	< 1e-9, 1e9 >
@@ -43,11 +43,11 @@ UNITS {
 	Tmax		= 1  	(mM)
 
 	: Postsinaptico, Westbrook scheme
-	
+
 	Cdur	= 0.3	(ms)
-	aKon =  9.06         (/ms/mM) 
+	aKon =  9.06         (/ms/mM)
         Koff =  0.115        (/ms)
-        Kon =   4.53         (/ms/mM) 
+        Kon =   4.53         (/ms/mM)
         aKoff = 0.23         (/ms)
         Kdam =  0.245        (/ms)
         Kda =  1.659        (/ms)
@@ -58,13 +58,13 @@ UNITS {
         Ks =   0.145        (/ms)
         Ksm =   0.694        (/ms)
 	Erev	= -3.7  (mV)	: 0 (mV)
-	
+
 	v0_block = -20 (mV)	: -16 -8.69 (mV)	: -18.69 (mV) : -32.7 (mV)
 	k_block  = 13 (mV)
 	nd	 = 1
 	kB	 = 0.44	(mM)
 
-	: Diffusion			
+	: Diffusion
 	diffuse	= 1
 	lamd	= 20 (nm)
 	celsius (degC)
@@ -80,13 +80,13 @@ ASSIGNED {
 	a		(/ms)    : binding
 	b		(/ms)
 	T		(mM)
-	x 
-	
+	x
+
 	Trelease	(mM)
 	tspike[100]	(ms)	: will be initialized by the pointprocess
 	PRE[100]
-	Mres		(mM)	
-	
+	Mres		(mM)
+
 	MgBlock
 	numpulses
 	tzero
@@ -102,8 +102,8 @@ STATE {
 	C1
 	C2
 	D1
-	D2	
-	O	
+	D2
+	O
 }
 
 INITIAL {
@@ -125,20 +125,20 @@ INITIAL {
 	Mres = 1e3 * (1e3 * 1e15 / 6.022e23 * M)     : (M) to (mM) so 1e3, 1um^3=1dm^3*1e-15 so 1e15
 	FROM i=1 TO 100 { PRE[i-1]=0 tspike[i-1]=0 } :PRE_2[500]=0}
 	tspike[0]=1e12	(ms)
-	if(tau_1>=tau_rec){ 
+	if(tau_1>=tau_rec){
 		printf("Warning: tau_1 (%g) should never be higher neither equal to tau_rec (%g)!\n",tau_1,tau_rec)
 		tau_rec=tau_1+1e-5
-		:printf("tau_rec has been set to %g\n",tau_rec) 
-	} 
+		:printf("tau_rec has been set to %g\n",tau_rec)
+	}
 
 }
 	FUNCTION imax(a,b) {
 	    if (a>b) { imax=a }
 	    else { imax=b }
 	}
-	
 
-FUNCTION diffusione(){	 
+
+FUNCTION diffusione(){
 	LOCAL DifWave,i,cntc,fi,aaa
 	DifWave=0
 	cntc=imax(numpulses-100,0)
@@ -157,35 +157,34 @@ FUNCTION diffusione(){
 			}
 		    }
 		}
-	}	
+	}
 	diffusione=DifWave
 }
 
 BREAKPOINT {
 	rates(v)
-	SOLVE kstates METHOD sparse	
+	SOLVE kstates METHOD sparse
 	g = gmax * gbar_Q10 * O * gmax_factor
-	
+
 	: E' piu' logico spostare * MgBlock * PRE sul calcolo della corrente!
 	i = (1e-6) * g * (v - Erev) * MgBlock
 	ic = i
     }
 
-KINETIC kstates {	
+KINETIC kstates {
 	:if ( diffuse && (t>tspike[0]) ) { Trelease= T + diffusione() } else { Trelease=T }
 	Trelease = diffusione()
 	a = Kon * Trelease
 	b = aKon * Trelease
-	~ CC0 <-> CC1 (b*Q10,Koff*Q10) 
-	~ CC1 <-> CC2 (a*Q10,aKoff*Q10) 
+	~ CC0 <-> CC1 (b*Q10,Koff*Q10)
+	~ CC1 <-> CC2 (a*Q10,aKoff*Q10)
         ~ CC2 <-> D1 (Kda*Q10,Kdam*Q10)
-        ~ CC2 <-> D2 (Kdb*Q10,Kdbm*Q10) 
-	~ CC2 <-> C1 (Kf*Q10,Kfm*Q10) 
+        ~ CC2 <-> D2 (Kdb*Q10,Kdbm*Q10)
+	~ CC2 <-> C1 (Kf*Q10,Kfm*Q10)
 	~ CC2 <-> C2 (Ks*Q10,Ksm*Q10)
-	: Added a temporary 0.1 factor as a patch to prevent the Open Probability rising to unwanted levels.
-	~ C1 <-> O (Ks*Q10*0.1,Ksm*Q10)
-	~ C2 <-> O (Kf*Q10*0.1,Kfm*Q10)
-	
+	~ C1 <-> O (Ks*Q10,Ksm*Q10)
+	~ C2 <-> O (Kf*Q10,Kfm*Q10)
+
 	CONSERVE CC0+CC1+CC2+C1+C2+D1+D2+O = 1
 }
 
@@ -200,7 +199,7 @@ NET_RECEIVE(weight, on, nspike, tzero (ms),y, z, u, tsyn (ms)) {LOCAL fi
 
 : *********** ATTENZIONE! ***********
 :
-: Qualora si vogliano utilizzare impulsi di glutammato saturanti e' 
+: Qualora si vogliano utilizzare impulsi di glutammato saturanti e'
 : necessario che il pulse sia piu' corto dell'intera simulazione
 : altrimenti la variabile on non torna al suo valore di default.
 
@@ -211,43 +210,42 @@ INITIAL {
 	tsyn = t
 	nspike = 1
 }
-   if (flag == 0) { 
+   if (flag == 0) {
 		: Qui faccio rientrare la modulazione presinaptica
 		nspike = nspike + 1
 		if (!on) {
 			tzero = t
-			on = 1				
+			on = 1
 			z = z*exp( - (t - tsyn) / (tau_rec) )	: RESCALED !
 			z = z + ( y*(exp(-(t - tsyn)/tau_1) - exp(-(t - tsyn)/(tau_rec)))/((tau_1/(tau_rec))-1) ) : RESCALED !
-			y = y*exp(-(t - tsyn)/tau_1)			
+			y = y*exp(-(t - tsyn)/tau_1)
 			x = 1-y-z
-				
-			if (tau_facil > 0) { 
+
+			if (tau_facil > 0) {
 				u = u*exp(-(t - tsyn)/tau_facil)
-				u = u + U * ( 1 - u )							
+				u = u + U * ( 1 - u )
 			} else { u = U }
-			
+
 			y = y + x * u
-			
+
 			T=Tmax*y
 			fi=fmod(numpulses,100)
 			PRE[fi]=y	: PRE[numpulses]=y
-			
+
 			:PRE=1	: Istruzione non necessaria ma se ommesso allora le copie dell'oggetto successive alla prima non funzionano!
 			:}
-			: all'inizio numpulses=0 !			
-			
+			: all'inizio numpulses=0 !
+
 			tspike[fi] = t
 			numpulses=numpulses+1
 			tsyn = t
-			
+
 		}
-		net_send(Cdur, nspike)	 
+		net_send(Cdur, nspike)
     }
-	if (flag == nspike) { 
+	if (flag == nspike) {
 			tzero = t
 			T = 0
 			on = 0
 	}
 }
-

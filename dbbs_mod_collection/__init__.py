@@ -1,6 +1,6 @@
 import os
 
-__version__ = "2.1.0"
+__version__ = "2.2.0b1"
 
 class Package:
   def __init__(self):
