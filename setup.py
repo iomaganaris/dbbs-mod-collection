@@ -4,12 +4,6 @@ from dbbs_mod_collection import __version__
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-def list_mod_files():
-    here = os.path.dirname(__file__)
-    path = os.path.join(here, "dbbs_mod_collection", "mod", "*")
-    mods = glob.glob(path)
-    return [os.path.relpath(m, here) for m in mods]
-
 setuptools.setup(
      name='dbbs_mod_collection',
      version=__version__,
@@ -26,9 +20,9 @@ setuptools.setup(
          "Operating System :: OS Independent",
      ],
      include_package_data=True,
-     data_files=[
-         ('mod', list_mod_files())
-     ],
+     package_data={
+        "dbbs_mod_collection": ["*.mod"]
+     },
      entry_points={
       'glia.package': ['dbbs_mod_collection = dbbs_mod_collection']
      },
