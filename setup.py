@@ -21,7 +21,7 @@ setuptools.setup(
      ],
      include_package_data=True,
      package_data={
-        "dbbs_mod_collection": ["*.mod"]
+        "dbbs_mod_collection": ["mod/*.mod"]
      },
      entry_points={
       'glia.package': ['dbbs_mod_collection = dbbs_mod_collection']
