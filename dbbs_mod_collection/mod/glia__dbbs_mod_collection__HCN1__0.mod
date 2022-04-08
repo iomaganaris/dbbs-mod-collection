@@ -29,7 +29,7 @@ PARAMETER {
     gbar = .0001             (mho/cm2)
     ratetau = 1              (ms)
     : We set the recording temperature here to room temperature as in Angelo et al.,
-    : they forogot to mention the recording temperature.
+    : they forgot to mention the recording temperature.
     rec_temp = 23            (deg)
     ljp = 9.3                (mV) : liquid_junction_potential
     v_inf_half_noljp = -90.3 (mV)
