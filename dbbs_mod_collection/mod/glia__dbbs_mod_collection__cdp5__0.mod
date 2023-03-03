@@ -26,6 +26,7 @@ SUFFIX glia__dbbs_mod_collection__cdp5__0
   RANGE ica_pmp
   RANGE Nannuli, Buffnull2, rf3, rf4, vrat
   RANGE TotalPump
+  RANGE dsq, dsqvol
 
 }
 
@@ -99,7 +100,9 @@ ASSIGNED {
 	cai       (mM)
 	cao       (mM)
 	mgi	(mM)
-	vrat	(1)	
+	vrat	(1)
+    dsq
+	dsqvol
 }
 
 STATE {
@@ -140,7 +143,7 @@ BREAKPOINT {
 	SOLVE state METHOD sparse
 }
 
-LOCAL factors_done
+:LOCAL factors_done
 
 INITIAL {
 		factors()
@@ -190,7 +193,7 @@ PROCEDURE factors() {
 }
 
 
-LOCAL dsq, dsqvol  : can't define local variable in KINETIC block
+:LOCAL dsq, dsqvol  : can't define local variable in KINETIC block
                    :   or use in COMPARTMENT statement
 
 KINETIC state {

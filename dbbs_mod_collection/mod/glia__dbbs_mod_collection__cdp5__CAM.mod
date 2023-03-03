@@ -33,6 +33,7 @@ SUFFIX glia__dbbs_mod_collection__cdp5__CAM
   RANGE Nannuli, Buffnull2, rf3, rf4, vrat
   RANGE CAM0, CAM1C, CAM2C, CAM1N2C, CAM1N, CAM2N, CAM2N1C, CAM1C1N, CAM4, icazz
   RANGE TotalPump
+  RANGE dsq, dsqvol
 
 }
 
@@ -134,6 +135,8 @@ ASSIGNED {
 	nr2ai  (mM)
 	nr2bi  (mM)
 	icazz (nA)
+    dsq
+    dsqvol
 }
 
 STATE {
@@ -194,7 +197,7 @@ BREAKPOINT {
 	SOLVE state METHOD sparse
 }
 
-LOCAL factors_done
+:LOCAL factors_done
 
 INITIAL {
 	factors()
@@ -256,7 +259,7 @@ PROCEDURE factors() {
 }
 
 
-LOCAL dsq, dsqvol  : can't define local variable in KINETIC block
+:LOCAL dsq, dsqvol  : can't define local variable in KINETIC block
                    :   or use in COMPARTMENT statement
 
 KINETIC state {
