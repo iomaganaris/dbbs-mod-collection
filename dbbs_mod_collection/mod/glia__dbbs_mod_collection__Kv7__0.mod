@@ -29,7 +29,7 @@ SUFFIX glia__dbbs_mod_collection__Kv7__0
 	THREADSAFE
 	USEION k READ ek WRITE ik
         RANGE  gbar,ik
-      GLOBAL inf, tau
+      RANGE inf, tau
 }
 
 STATE {
